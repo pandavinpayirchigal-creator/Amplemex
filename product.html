@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Product Details</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/product.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+AMPLEMEN
+</div>
+
+<ul class="nav-links">
+
+<li>
+<a href="products.html">
+Products
+</a>
+</li>
+
+<li>
+<a href="cart.html">
+Cart
+<span id="cart-count">0</span>
+</a>
+</li>
+
+</ul>
+
+</nav>
+
+<div id="product-detail">
+
+</div>
+
+<script src="js/storage.js"></script>
+
+<script>
+
+const params =
+new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+fetch("data/products.json")
+
+.then(res=>res.json())
+
+.then(products=>{
+
+const product =
+products.find(p=>p.id==id);
+
+document.getElementById(
+"product-detail"
+).innerHTML = `
+
+<div style="padding:50px;">
+
+<h1>${product.name}</h1>
+
+<br>
+
+<img
+src="${product.image}"
+width="400">
+
+<br><br>
+
+<p>
+${product.description}
+</p>
+
+<br>
+
+<h2>
+₹${product.price}
+</h2>
+
+<br>
+
+<button
+class="btn"
+onclick='addToCart(${JSON.stringify(product)})'>
+
+Add To Cart
+
+</button>
+
+</div>
+
+`;
+
+});
+
+</script>
+
+</body>
+</html>
